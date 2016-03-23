@@ -20,6 +20,7 @@ gem 'bootstrap-sass', '~> 3.3.4.1'
 gem 'better_errors'
 
 gem 'rb-readline'
+gem 'devise', '~> 3.4.1'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
