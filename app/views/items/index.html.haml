@@ -1,10 +1,41 @@
+/ Checks to see if a user is signed in, if one is, it will list its checklist.
+/ If not, it will render the landing page that asks the user to sign up or login.
 - if user_signed_in?
-  - @items.each do |item|
-    %h2= link_to item.title, item
-    %p= item.description
-
+  .col-md-10.col-md-offset-1
+    - @items.each do |item|
+      .index-wrapper
+        - if item.completed?
+          / For Completed Items
+          .row.item
+            .col-md-2
+              %p
+                = link_to complete_item_path(item), method: :patch do
+              %i.fa.fa-check.fa-lg
+            .col-md-2
+              %p
+                = link_to item, method: :delete, data: { confirm: "Are you sure?" } do
+              %i.fa.fa-trash.fa-lg
+            .col-md-8
+              %h2.item-title{:style => "opacity: 0.5;"}
+                %strike= link_to item.title, item
+              %p.item-sub-title.item-desc{:style => "opacity: 0.5;"}= item.description
+              %p.time-created-at.item-sub-title{:style => "opacity: 0.5;"}
+                Completed #{time_ago_in_words(item.completed_at)} ago
+        - else
+          / For Items NOT Completed
+          .row.item
+            .col-md-2
+              %p
+                = link_to complete_item_path(item), method: :patch do
+              %i.fa.fa-check.fa-lg
+            .col-md-8
+              %h2.item-title= link_to item.title, item
+              %p.item-sub-title.item-desc= item.description
+              %p.time-created-at.item-sub-title{:style => "opacity: 0.5;"}
+                Created #{time_ago_in_words(item.created_at)} ago
+            .col-md-2
+              %p
+                = link_to item, method: :delete, data: { confirm: "Are you sure?" } do
+              %i.fa.fa-trash.fa-lg
 - else
   = render 'welcome_page'
-
-
-

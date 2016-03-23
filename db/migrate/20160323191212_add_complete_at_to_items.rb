@@ -1,5 +1,5 @@
 class AddCompleteAtToItems < ActiveRecord::Migration
   def change
-    add_column :items, :complete_at, :datetime
+    add_column :items, :completed_at, :datetime
   end
 end
